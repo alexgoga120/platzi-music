@@ -1,6 +1,11 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <HelloWorld msg="Hola Vue.js App"/>
+  <input v-model="name">
+
+  <button @click="format">Formato</button>
+
+  <p> {{ formatName }}</p>
 </template>
 
 <script>
@@ -10,17 +15,24 @@ export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+  data(){
+    return{
+      name: '',
+      formatName:''
+    }
+  },
+
+  methods:{
+    format(){
+      this.formatName = this.name.split(' ').join('-').toUpperCase()
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="sass">
+
+@import "scss/main.scss"
+
 </style>
