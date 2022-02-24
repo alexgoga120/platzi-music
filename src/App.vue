@@ -1,31 +1,50 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Hola Vue.js App"/>
-  <input v-model="name">
 
-  <button @click="format">Formato</button>
+  <section class="section">
+    <nav class="nav has-shadow">
+      <div class="container">
+        <input v-model="searchQuery" type="text" class="input is-large" placeholder="Buscar Canción">
+        <a @click="search" class="button is-info is-large">Buscar</a>
+        <a class="button is-danger is-large">&times;</a>
+        <p>
+          <small>{{searchMessage}}</small>
+        </p>
+      </div>
+    </nav>
+    <div class="container result">
+      <div class="container">
+        <div v-for="t in tracks" :key.attr="t" class="column">
+          {{t.name}} - {{t.artists[0].name}}
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <p> {{ formatName }}</p>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import trackService from "@/services/track";
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  },
-  data(){
-    return{
-      name: '',
-      formatName:''
+  data() {
+    return {
+      searchQuery: '',
+      tracks: []
     }
   },
 
-  methods:{
-    format(){
-      this.formatName = this.name.split(' ').join('-').toUpperCase()
+  computed: {
+    searchMessage(){
+      return `Encontrado: ${this.tracks.length}`
+    }
+  },
+
+  methods: {
+    search(){
+      if (!this.searchQuery){return}
+      trackService.search(this.searchQuery)
+          .then(res => {this.tracks = res.tracks.items})
     }
   }
 }
