@@ -26,6 +26,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   props: {
@@ -34,6 +35,8 @@ export default {
   methods: {
     selectTrack(){
       this.$emit('select', this.track.id)
+      this.emitter.emit('set-track', this.track)
+      this.state = 1
     },
     goToTrack (id) {
       if (!this.track.preview_url) { return }

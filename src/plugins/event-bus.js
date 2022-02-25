@@ -1,7 +1,9 @@
-const eventBus ={}
+import mitt from "mitt";
 
-eventBus.isntall = function (Vue){
-    Vue.prototype.$bus = new Vue();
+const eventBus = {}
+
+eventBus.install = function (Vue) {
+    Vue.prototype.eventBus = new mitt()
 }
 
 export default eventBus
