@@ -30,6 +30,15 @@
 export default {
   props: {
     track: {type: Object, required: true}
+  },
+  methods: {
+    selectTrack(){
+      this.$emit('select', this.track.id)
+    },
+    goToTrack (id) {
+      if (!this.track.preview_url) { return }
+      this.$router.push({ name: 'track', params: { id } })
+    }
   }
 }
 </script>

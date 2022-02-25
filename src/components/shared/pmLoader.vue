@@ -6,7 +6,7 @@
 </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
   .container{
     padding: 20px;
     min-height: 40vh;

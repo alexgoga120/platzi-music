@@ -2,23 +2,30 @@
 
   <pmHeader/>
 
+  <pm-notification v-if="showNotification" msg="No se encontraron resultados ☹" type="is-danger">
+    <template v-slot:body/>
+  </pm-notification>
+  <pm-notification v-else-if="showNotification == false" msg="Todo bien 👌" type="is-success">
+    <template v-slot:body/>
+  </pm-notification>
+
   <pm-loader v-show="isLoading"/>
 
   <section class="section" v-show="!isLoading">
-    <nav class="nav has-shadow">
+    <nav class="nav">
       <div class="container">
         <input v-model="searchQuery" type="text" class="input is-large" placeholder="Buscar Canción">
         <a @click="search" class="button is-info is-large">Buscar</a>
         <a class="button is-danger is-large">&times;</a>
         <p>
-          <small>{{searchMessage}}</small>
+          <small>{{ searchMessage }}</small>
         </p>
       </div>
     </nav>
     <div class="container result">
       <div class="columns is-multiline">
         <div v-for="t in tracks" :key.attr="t" class="column is-one-quarter">
-          <pm-track :track="t"/>
+          <pm-track :track="t" :class="{'is-active': t.id == selectedTrack}" @select="setSelectedTrack"/>
         </div>
       </div>
     </div>
@@ -35,6 +42,7 @@ import pmFooter from './components/layout/pmFooter.vue';
 
 import pmTrack from './components/pmTrack.vue';
 import pmLoader from './components/shared/pmLoader.vue';
+import pmNotification from './components/shared/pmNotification.vue';
 
 export default {
   name: 'App',
@@ -42,25 +50,42 @@ export default {
     return {
       searchQuery: '',
       tracks: [],
-      isLoading: false
+      isLoading: false,
+      selectedTrack : '',
+      showNotification: null
     }
   },
 
-  components: {pmFooter, pmHeader, pmTrack, pmLoader},
+  components: {pmFooter, pmHeader, pmTrack, pmLoader, pmNotification},
 
 
   computed: {
-    searchMessage(){
+    searchMessage() {
       return `Encontrado: ${this.tracks.length}`
     }
   },
-
+  watch: {
+    showNotification(){
+        setTimeout(() => {
+          this.showNotification = null
+        }, 3000)
+    }
+  },
   methods: {
-    search(){
-      if (!this.searchQuery){return}
+    search() {
+      if (!this.searchQuery) {
+        return
+      }
       this.isLoading = true;
       trackService.search(this.searchQuery)
-          .then(res => {this.tracks = res.tracks.items; this.isLoading = false})
+          .then(res => {
+            this.showNotification = res.tracks.total === 0;
+            this.tracks = res.tracks.items;
+            this.isLoading = false
+          })
+    },
+    setSelectedTrack (id){
+      this.selectedTrack = id
     }
   }
 }
