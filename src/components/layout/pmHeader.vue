@@ -6,7 +6,10 @@
           <div class="navbar-start">
             <div class="navbar-item"><strong>📻 Platzi Music</strong></div>
           </div>
-          <div class="navbar-end navbar-menu"></div>
+          <div class="navbar-end navbar-menu">
+            <router-link class="navbar-item" to="/">Buscar</router-link>
+            <router-link class="navbar-item"  to="about">Nosostros</router-link>
+          </div>
         </div>
       </header>
     </div>
@@ -21,7 +24,7 @@
 </template>
 
 <script>
-import PmPlayer from "@/components/pmPlayer.vue";
+import PmPlayer from "@/views/pmPlayer.vue";
 
 export default {
   components: {PmPlayer}

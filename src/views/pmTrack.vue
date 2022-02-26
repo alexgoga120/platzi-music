@@ -13,13 +13,13 @@
           <p class="subtitle is-6">{{ track.artists[0].name }}</p>
         </div>
       </div>
-      <div class="content"><small>{{ track.duration_ms }}</small>
+      <div class="content"><small>{{ convertMsToMm(track.duration_ms) }}</small>
         <nav class="level">
           <div class="level-left">
-            <button class="level-item button is-primary"><span class="icon is-small" @click="selectTrack">▶️</span>
+            <button class="level-item button is-primary" @click="selectTrack"><span class="icon is-small">▶️</span>
             </button>
-            <button class="level-item button is-warning"><span class="icon is-small"
-                                                               @click="goToTrack(track.id)">🌎</span></button>
+            <button class="level-item button is-warning" @click="goToTrack(track.id)"><span
+                class="icon is-small">🌎</span></button>
           </div>
         </nav>
       </div>
@@ -33,14 +33,16 @@ export default {
     track: {type: Object, required: true}
   },
   methods: {
-    selectTrack(){
+    selectTrack() {
       this.$emit('select', this.track.id)
       this.emitter.emit('set-track', this.track)
       this.state = 1
     },
-    goToTrack (id) {
-      if (!this.track.preview_url) { return }
-      this.$router.push({ name: 'track', params: { id } })
+    goToTrack(id) {
+      if (!this.track.preview_url) {
+        return
+      }
+      this.$router.push({name: 'track', params: {id}})
     }
   }
 }
