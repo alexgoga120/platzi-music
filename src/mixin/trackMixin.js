@@ -1,9 +1,8 @@
-const trackMixin ={
-    methods:{
-        selectTrack() {
+const trackMixin = {
+    methods: {
+        selectTrack () {
             this.$emit('select', this.track.id)
-            this.emitter.emit('set-track', this.track)
-            this.state = 1
+            this.$store.commit('setTrack', this.track)
         }
     }
 }

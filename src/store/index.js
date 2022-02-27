@@ -11,7 +11,7 @@ export default createStore({
             if (!state.track.name) {
                 return ''
             }
-            return `${state.track.name} - ${state.track.artists[0].name}`
+            return `${state.track.name} - ${ state.track.artists[0].name }`
         }
     },
 

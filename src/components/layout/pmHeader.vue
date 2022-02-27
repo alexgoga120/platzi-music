@@ -8,7 +8,7 @@
           </div>
           <div class="navbar-end navbar-menu">
             <router-link class="navbar-item" to="/">Buscar</router-link>
-            <router-link class="navbar-item"  to="about">Nosostros</router-link>
+            <router-link class="navbar-item"  to="/about">Nosostros</router-link>
           </div>
         </div>
       </header>
