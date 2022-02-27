@@ -1,27 +1,28 @@
-import Vuex from 'vuex'
+import {createStore} from 'vuex'
+import trackService from "@/services/track";
 
-import trackService from '@/services/track'
-
-const store = new Vuex.Store({
+export default createStore({
     state: {
         track: {}
     },
 
     getters: {
-        trackTitle (state) {
-            if (!state.track.name) { return '' }
+        trackTitle(state) {
+            if (!state.track.name) {
+                return ''
+            }
             return `${state.track.name} - ${state.track.artists[0].name}`
         }
     },
 
     mutations: {
-        setTrack (state, track) {
+        setTrack(state, track) {
             state.track = track
         }
     },
 
     actions: {
-        getTrackById (context, payload) {
+        getTrackById(context, payload) {
             return trackService.getById(payload.id)
                 .then(res => {
                     context.commit('setTrack', res)
@@ -30,5 +31,3 @@ const store = new Vuex.Store({
         }
     }
 })
-
-export default store
