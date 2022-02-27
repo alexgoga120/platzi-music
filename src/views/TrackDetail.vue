@@ -24,9 +24,20 @@
             <article class="media">
               <div class="media-content">
                 <div class="content">
+                  <ul :key="k" v-for="(v,k) in track">
+                    <li>
+                      <strong>{{k}}:&nbsp;</strong>
+                      <span>{{v}}</span>
+                    </li>
+                  </ul>
 
                 </div>
               </div>
+              <nav class="level">
+                <div class="level-left">
+                  <a class="level-item"></a>
+                </div>
+              </nav>
             </article>
           </div>
         </div>
@@ -38,7 +49,11 @@
 <script>
 import trackService from '@/services/track'
 
+import trackMixin from "@/mixin/trackMixin";
+
 export default {
+  mixins:
+    [trackMixin],
 
   data() {
     return {

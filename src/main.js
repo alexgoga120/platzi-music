@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import mitt from 'mitt';
 import router from './router'
+import store from '@/store'
 
 
 const emitter = mitt();
@@ -11,7 +12,7 @@ const convertMsToMm = (millis) => {
     return `${minutes}:${(seconds < 10 ? "0" : "")}${seconds}`;
 }
 
-var app = createApp(App).use(router)
+var app = createApp(App).use(router).use(store)
 
 app.directive('blur', {
     beforeMount: (el, binding) => {

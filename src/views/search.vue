@@ -2,14 +2,19 @@
 
   <main>
 
-    <pm-notification v-if="showNotification" msg="No se encontraron resultados ☹" type="is-danger">
-      <template v-slot:body/>
-    </pm-notification>
-    <pm-notification v-else-if="showNotification == false" msg="Todo bien 👌" type="is-success">
-      <template v-slot:body/>
-    </pm-notification>
+    <transition name="move">
+      <pm-notification v-if="showNotification" msg="No se encontraron resultados ☹" type="is-danger">
+        <template v-slot:body/>
+      </pm-notification>
+      <pm-notification v-else-if="showNotification == false" msg="Todo bien 👌" type="is-success">
+        <template v-slot:body/>
+      </pm-notification>
+    </transition>
 
-    <pm-loader v-show="isLoading"/>
+
+    <transition name="move">
+      <pm-loader v-show="isLoading"/>
+    </transition>
 
     <section class="section" v-show="!isLoading">
       <nav class="nav">
